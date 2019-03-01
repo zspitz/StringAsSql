@@ -20,5 +20,11 @@ namespace StringAsSql.Util {
             }
             return src;
         }
+
+        public static void AddRangeTo<T>(this IEnumerable<T> src, ICollection<T> dest) {
+            foreach (var item in src) {
+                dest.Add(item);
+            }
+        }
     }
 }

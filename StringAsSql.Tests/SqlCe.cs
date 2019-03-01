@@ -2,7 +2,6 @@
 using Xunit;
 using static StringAsSql.SqlString;
 
-
 namespace StringAsSql.Tests {
     public class SqlCeFixtureBase : BaseFixture {
         public SqlCeFixtureBase(bool sharedConnection) : base("test.sdf", "test.ldf") {

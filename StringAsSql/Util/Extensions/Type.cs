@@ -13,5 +13,30 @@ namespace StringAsSql.Util {
         }
 
         public static Type UnderlyingIfNullable(this Type type) => Nullable.GetUnderlyingType(type) ?? type;
+
+        public static bool IsTupleType(this Type type) {
+            if (!type.IsGenericType) { return false; }
+            var openType = type.GetGenericTypeDefinition();
+            if (openType.In(
+                typeof(ValueTuple<>),
+                typeof(ValueTuple<,>),
+                typeof(ValueTuple<,,>),
+                typeof(ValueTuple<,,,>),
+                typeof(ValueTuple<,,,,>),
+                typeof(ValueTuple<,,,,,>),
+                typeof(ValueTuple<,,,,,,>),
+                typeof(Tuple<>),
+                typeof(Tuple<,>),
+                typeof(Tuple<,,>),
+                typeof(Tuple<,,,>),
+                typeof(Tuple<,,,,>),
+                typeof(Tuple<,,,,,>),
+                typeof(Tuple<,,,,,,>)
+            )) {
+                return true;
+            }
+            return (openType.In(typeof(ValueTuple<,,,,,,,>), typeof(Tuple<,,,,,,,>))
+                && type.GetGenericArguments()[7].IsTupleType());
+        }
     }
 }

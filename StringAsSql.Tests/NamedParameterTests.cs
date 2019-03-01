@@ -31,7 +31,7 @@ namespace StringAsSql.Tests {
             insertSql,
             new Dictionary<string, string>() {
                 {"FirstName", "Yaakov" },
-                {"LastName", "Yitzchak" }
+                {"LastName", "Avinu" }
             }
         );
     }

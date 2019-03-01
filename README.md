@@ -68,7 +68,7 @@ The above code opens a new connection and command for each SQL statement. If you
   }
   ```
   
-* Explicitly pass in the connection, as described in [the next section]()
+* Explicitly pass in the connection, as described in [the next section](https://github.com/zspitz/StringAsSql/blob/master/README.md#working-with-multiple-connections----explicitly-passing-the-connection)
 
 
 ## Working with multiple connections -- explicitly passing the connection

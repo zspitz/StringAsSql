@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StringAsSql", "StringAsSql\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StringAsSql.Tests", "StringAsSql.Tests\StringAsSql.Tests.csproj", "{63F8D1E2-64D8-4B6B-B28D-06BFEEE5FAF4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDatabaseCreation", "TestDatabaseCreation\TestDatabaseCreation.csproj", "{EB94C2FD-A7D4-4169-92A4-4F5CD768A2C5}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{63F8D1E2-64D8-4B6B-B28D-06BFEEE5FAF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{63F8D1E2-64D8-4B6B-B28D-06BFEEE5FAF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{63F8D1E2-64D8-4B6B-B28D-06BFEEE5FAF4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EB94C2FD-A7D4-4169-92A4-4F5CD768A2C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EB94C2FD-A7D4-4169-92A4-4F5CD768A2C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EB94C2FD-A7D4-4169-92A4-4F5CD768A2C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EB94C2FD-A7D4-4169-92A4-4F5CD768A2C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

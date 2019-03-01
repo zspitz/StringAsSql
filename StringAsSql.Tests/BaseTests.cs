@@ -6,7 +6,6 @@ using Xunit;
 using Xunit.Extensions.Ordering;
 using static System.Data.CommandType;
 
-
 namespace StringAsSql.Tests {
     public abstract class BaseTests {
         private BaseFixture fixture;
@@ -36,7 +35,7 @@ namespace StringAsSql.Tests {
             }
         }
 
-        private string createTableSql;
+        private readonly string createTableSql;
         [Fact, Order(0)]
         public void CreateTable() => Execute(createTableSql);
 
@@ -51,8 +50,8 @@ namespace StringAsSql.Tests {
                 new Person {LastName = "Avinu", FirstName="Yitzchak"}
             };
             var actual = fixture.Connection != null ?
-                "Persons".AsSql(TableDirect).ToList<Person>(fixture.Connection) :
-                "Persons".AsSql(TableDirect).ToList<Person>();
+                personsSql.AsSql(TableDirect).ToList<Person>(fixture.Connection) :
+                personsSql.AsSql(TableDirect).ToList<Person>();
             foreach (var p in expected) {
                 Assert.Contains(actual, p1 => p1.LastName == p.LastName && p1.FirstName == p.FirstName);
             }
@@ -100,7 +99,5 @@ namespace StringAsSql.Tests {
                 }
             );
         }
-
-
     }
 }

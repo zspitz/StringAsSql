@@ -48,3 +48,42 @@ Get a list of objects:
 // using static System.Data.CommandType;
 List<Person> persons = "Persons".AsSql(TableDirect).ToList<Person>();
 ```
+
+## Reusing the same connection
+
+The above code opens a new connection and command for each SQL statement. If you want to reuse the same connection, you have two choices:
+
+* Set the `ConnectionFactory` to return the same connection each time, instead of a new connection
+  ```csharp
+  using (var conn = new OleDbConnection(connectionString)) {
+      ConnectionFactory = () => conn;
+      
+      @"CREATE TABLE Persons (
+          ID COUNTER PRIMARY KEY, 
+          LastName TEXT,
+          FirstName TEXT
+      )".AsSql().Execute();
+      
+      // ...
+  }
+  ```
+  
+* Explicitly pass in the connection, as described in [the next section]()
+
+
+## Working with multiple connections -- explicitly passing the connection
+
+You can also pass in the connection on which to execute the given SQL:
+```csharp
+using (var conn1 = new OleDbConnection(connectionString1)) {
+    using (var conn2 = new OleDbConnection(connectionString2)) {
+    
+        @"CREATE TABLE Persons (
+            ID COUNTER PRIMARY KEY, 
+            LastName TEXT,
+            FirstName TEXT
+        )".AsSql().Execute(conn2);
+        
+        // ...
+    }
+}

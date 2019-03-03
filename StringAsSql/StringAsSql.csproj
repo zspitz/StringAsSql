@@ -1,8 +1,20 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Configurations>Debug;Release;ReleaseCI</Configurations>
+    <Authors>Zev Spitz</Authors>
+    <Description>Enables executing -- and returning data from -- SQL statements without a mess of multiple objects and `using` blocks</Description>
+    <PackageId>StringAsSql</PackageId>
+    <Company />
+    <Product>StringAsSql</Product>
+    <Copyright>Copyright (c) 2019 Zev Spitz</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/zspitz/StringAsSql</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/zspitz/StringAsSql.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>ado.net sql oledb</PackageTags>
+    <PackageReleaseNotes>Initial release</PackageReleaseNotes>
   </PropertyGroup>
 
 </Project>

@@ -1,4 +1,7 @@
 # StringAsSql
+
+[![Build status](https://ci.appveyor.com/api/projects/status/venckqx9v0260k0i?svg=true)](https://ci.appveyor.com/project/zspitz/stringassql)
+
 This library enables you to use SQL statements without a mess of multiple objects and `using` blocks. For example, you can write this:
 ```csharp
 // setup ConnectionFactory -- not shown

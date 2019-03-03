@@ -15,6 +15,7 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>ado.net sql oledb</PackageTags>
     <PackageReleaseNotes>Initial release</PackageReleaseNotes>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
 </Project>

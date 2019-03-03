@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Data.Common;
 using Xunit;
 using Xunit.Extensions.Ordering;
 
@@ -12,8 +13,9 @@ namespace StringAsSql.Tests {
             string personsSql,
             string countSql,
             string distinctSql,
-            string datatableSql
-        ) : base(fixture, createTableSql, insertSql, personsSql, countSql, distinctSql, datatableSql) { }
+            string datatableSql,
+            DbParameter[] parameters
+        ) : base(fixture, createTableSql, insertSql, personsSql, countSql, distinctSql, datatableSql, parameters) { }
 
         [Fact, Order(1)]
         public void InsertWithParameterList() => Execute(
@@ -34,6 +36,26 @@ namespace StringAsSql.Tests {
                 ("LastName", "Avinu"),
                 ("FirstName", "Yaakov")
             }
+        );
+
+        [Fact, Order(1)]
+        public void InsertDbParameter() {
+            parameters[0].ParameterName = "Parameter";
+            parameters[0].Value = "HaMelech";
+            parameters[1].ParameterName = "Parameter";
+            parameters[1].Value = "Dovid";
+            Execute(
+                insertSql,
+                parameters[0],
+                parameters[1]
+            );
+        }
+
+        [Fact, Order(1)]
+        public void InsertWithNull() => Execute(
+            insertSql,
+            null,
+            "Hillel"
         );
     }
 }

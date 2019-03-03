@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Linq;
 using Xunit;
 using Xunit.Extensions.Ordering;
@@ -16,7 +17,8 @@ namespace StringAsSql.Tests {
             string personsSql,
             string countSql,
             string distinctSql,
-            string datatableSql
+            string datatableSql,
+            DbParameter[] parameters
         ) {
             this.fixture = fixture;
             this.createTableSql = createTableSql;
@@ -25,9 +27,10 @@ namespace StringAsSql.Tests {
             this.countSql = countSql;
             this.distinctSql = distinctSql;
             this.datatableSql = datatableSql;
+            this.parameters = parameters;
         }
 
-        protected void Execute(string sql, object parameters = null) {
+        protected void Execute(string sql, params object[] parameters) {
             if (fixture.Connection != null) {
                 sql.AsSql(parameters).Execute(fixture.Connection);
             } else {
@@ -40,6 +43,7 @@ namespace StringAsSql.Tests {
         public void CreateTable() => Execute(createTableSql);
 
         protected string insertSql;
+        protected DbParameter[] parameters;
 
         private string personsSql;
         [Fact, Order(2)]
@@ -47,7 +51,9 @@ namespace StringAsSql.Tests {
             var expected = new List<Person> {
                 new Person {LastName="Avinu", FirstName="Yaakov"},
                 new Person {LastName = "HaIvri", FirstName="Avraham"},
-                new Person {LastName = "Avinu", FirstName="Yitzchak"}
+                new Person {LastName = "Avinu", FirstName="Yitzchak"},
+                new Person {LastName = "HaMelech", FirstName="Dovid"},
+                new Person {FirstName = "Hillel"}
             };
             var actual = fixture.Connection != null ?
                 personsSql.AsSql(TableDirect).ToList<Person>(fixture.Connection) :
@@ -64,7 +70,7 @@ namespace StringAsSql.Tests {
             var actual = fixture.Connection != null ?
                 countSql.AsSql().ToScalar<int>(fixture.Connection) :
                 countSql.AsSql().ToScalar<int>();
-            Assert.Equal(3, actual);
+            Assert.Equal(5, actual);
         }
 
         private string distinctSql;
@@ -73,7 +79,7 @@ namespace StringAsSql.Tests {
             var actual = fixture.Connection != null ?
                 distinctSql.AsSql().ToList<string>(fixture.Connection).ToHashSet() :
                 distinctSql.AsSql().ToList<string>().ToHashSet();
-            var expected = new HashSet<string> { "HaIvri", "Avinu" };
+            var expected = new HashSet<string> { "HaIvri", "Avinu", "HaMelech", null };
             Assert.Equal(expected, actual);
         }
 

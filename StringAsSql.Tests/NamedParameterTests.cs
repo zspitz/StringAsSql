@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Common;
 using Xunit;
 using Xunit.Extensions.Ordering;
 
@@ -11,8 +13,9 @@ namespace StringAsSql.Tests {
             string personsSql,
             string countSql,
             string distinctSql,
-            string datatableSql
-        ) : base(fixture, createTableSql, insertSql, personsSql, countSql, distinctSql, datatableSql) { }
+            string datatableSql,
+            DbParameter[] parameters
+        ) : base(fixture, createTableSql, insertSql, personsSql, countSql, distinctSql, datatableSql, parameters) { }
 
         [Fact, Order(1)]
         protected void InsertWithNamedType() => Execute(
@@ -34,5 +37,25 @@ namespace StringAsSql.Tests {
                 {"LastName", "Avinu" }
             }
         );
+
+        [Fact, Order(1)]
+        public void InsertDbParameter() {
+            parameters[0].ParameterName = "@FirstName";
+            parameters[0].Value = "Hillel";
+            parameters[1].ParameterName = "@LastName";
+            parameters[1].Value = DBNull.Value;
+            Execute(
+                insertSql,
+                parameters
+            );
+        }
+
+        [Fact, Order(1)]
+        public void InsertWithTupleParameter() => Execute(
+            insertSql,
+            Tuple.Create("FirstName", "Dovid"),
+            Tuple.Create("LastName", "HaMelech")
+        );
+
     }
 }

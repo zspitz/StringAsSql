@@ -49,7 +49,11 @@ namespace StringAsSql.Tests {
             "Persons",
             "SELECT COUNT(*) FROM Persons",
             "SELECT DISTINCT LastName FROM Persons",
-            "SELECT ID, LastName, FirstName FROM Persons"
+            "SELECT ID, LastName, FirstName FROM Persons",
+            new[] {
+                new OleDbParameter(),
+                new OleDbParameter()
+            }
         ) {
             this.fixture = fixture;
             // if tests are being run in parallel, this is intended to ensure that the global connection factory is set for these tests

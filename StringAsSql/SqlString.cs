@@ -106,9 +106,9 @@ namespace StringAsSql {
     }
 
     public static class StringAsSqlExtensions {
-        public static SqlString AsSql(this string sql, object @params) =>
+        public static SqlString AsSql(this string sql, params object[] @params) =>
             new SqlString(Text, sql, @params);
-        public static SqlString AsSql(this string sql, CommandType commandType = Text, object @params = null) =>
+        public static SqlString AsSql(this string sql, CommandType commandType = Text, params object[] @params) =>
             new SqlString(commandType, sql, @params);
     }
 }

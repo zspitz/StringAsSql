@@ -1,6 +1,7 @@
 # StringAsSql
 
-[![Build status](https://ci.appveyor.com/api/projects/status/venckqx9v0260k0i?svg=true)](https://ci.appveyor.com/project/zspitz/stringassql)
+[![AppVeyor](https://img.shields.io/appveyor/ci/zspitz/StringAsSql/master.svg?label=appveyor)](https://ci.appveyor.com/project/zspitz/stringassql)
+[![NuGet](http://img.shields.io/nuget/v/StringAsSql.svg)](https://www.nuget.org/packages/StringAsSql/)
 
 This library enables you to use SQL statements without a mess of multiple objects and `using` blocks. For example, you can write this:
 ```csharp

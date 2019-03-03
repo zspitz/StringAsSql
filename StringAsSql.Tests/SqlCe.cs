@@ -29,7 +29,7 @@ namespace StringAsSql.Tests {
     }
 
     public abstract class SqlCeBase : NamedParameterTests {
-        private SqlCeFixtureBase fixture;
+        private readonly SqlCeFixtureBase fixture;
         public SqlCeBase(SqlCeFixtureBase fixture) : base(
             fixture,
             @"CREATE TABLE Persons (

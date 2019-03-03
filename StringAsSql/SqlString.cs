@@ -13,7 +13,6 @@ namespace StringAsSql {
 
         readonly string sql;
         readonly object @params;
-        readonly Dictionary<string, object> paramsDictionary;
         readonly CommandType commandType;
 
         public SqlString(CommandType commandType, string sql, object @params = null) {

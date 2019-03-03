@@ -36,7 +36,7 @@ namespace StringAsSql.Tests {
     }
 
     public abstract class MSAccessBase : PositionalParameterTests {
-        private MSAccessFixtureBase fixture;
+        private readonly MSAccessFixtureBase fixture;
         public MSAccessBase(MSAccessFixtureBase fixture) : base(
             fixture,
             @"CREATE TABLE Persons (

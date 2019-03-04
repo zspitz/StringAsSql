@@ -44,8 +44,6 @@ namespace StringAsSql.Tests {
             "SELECT DISTINCT LastName FROM Persons",
             "SELECT ID, LastName, FirstName FROM Persons",
             new [] {
-                //new SqlCeParameter {ParameterName = "FirstName", Value = "Hillel"},
-                //new SqlCeParameter {ParameterName = "LastName", Value = null}
                 new SqlCeParameter(),
                 new SqlCeParameter()
             }

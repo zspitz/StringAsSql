@@ -51,10 +51,10 @@ namespace StringAsSql.Tests {
         }
 
         [Fact, Order(1)]
-        public void InsertWithTupleParameter() => Execute(
+        public void InsertWithMultipleObjects() => Execute(
             insertSql,
-            Tuple.Create("FirstName", "Dovid"),
-            Tuple.Create("LastName", "HaMelech")
+            new {FirstName = "Dovid"},
+            new {LastName = "HaMelech"}
         );
 
     }

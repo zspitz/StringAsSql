@@ -8,7 +8,7 @@ This library enables you to use SQL statements without a mess of multiple object
 // setup ConnectionFactory -- not shown
 // optionally, setup ParameterNameBuilder -- not shown
 
-List<Person> persons = "SELECT * FROM Persons WHERE LastName LIKE ? + '%'".AsSql("A").ToList<Person>();
+List<Person> persons = "SELECT * FROM Persons WHERE LastName LIKE ? + '%'".AsSql("An").ToList<Person>();
 ```
 instead of this:
 ```csharp
@@ -18,7 +18,7 @@ using (var conn = new OleDbConnection(connectionString)) {
     var cmd = conn.CreateCommand();
     cmd.CommandText = "SELECT * FROM Persons WHERE LastName LIKE ? + '%'";
     cmd.Parameters.Add(
-        new OleDbParameter("Parameter1", "A")
+        new OleDbParameter("Parameter1", "An")
     );
     using (var rdr = cmd.ExecuteReader()) {
         while (rdr.Read()) {

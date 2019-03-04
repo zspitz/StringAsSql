@@ -49,11 +49,13 @@ namespace StringAsSql {
             }
             return ret;
         }
+        public List<T> ToList<T>(DbConnection conn, T typer) => ToList<T>(conn);
         public List<T> ToList<T>(Func<DbDataRecord, T> selector = null) {
             using (var conn = ConnectionFactory()) {
                 return ToList(conn, selector);
             }
         }
+        public List<T> ToList<T>(T typer) => ToList<T>();
 
         public T ToScalar<T>(DbConnection conn) {
             T ret = default(T);

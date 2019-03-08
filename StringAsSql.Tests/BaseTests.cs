@@ -46,15 +46,15 @@ namespace StringAsSql.Tests {
         protected DbParameter[] parameters;
 
         private string personsSql;
+        readonly List<Person> expected = new List<Person> {
+            new Person {LastName="Avinu", FirstName="Yaakov"},
+            new Person {LastName = "HaIvri", FirstName="Avraham"},
+            new Person {LastName = "Avinu", FirstName="Yitzchak"},
+            new Person {LastName = "HaMelech", FirstName="Dovid"},
+            new Person {FirstName = "Hillel"}
+        };
         [Fact, Order(2)]
         public void GetList() {
-            var expected = new List<Person> {
-                new Person {LastName="Avinu", FirstName="Yaakov"},
-                new Person {LastName = "HaIvri", FirstName="Avraham"},
-                new Person {LastName = "Avinu", FirstName="Yitzchak"},
-                new Person {LastName = "HaMelech", FirstName="Dovid"},
-                new Person {FirstName = "Hillel"}
-            };
             var actual = fixture.Connection != null ?
                 personsSql.AsSql(TableDirect).ToList<Person>(fixture.Connection) :
                 personsSql.AsSql(TableDirect).ToList<Person>();
@@ -64,8 +64,30 @@ namespace StringAsSql.Tests {
             Assert.Equal(expected.Count, actual.Count);
         }
 
+        [Fact, Order(2)]
+        public void GetDynamicList() {
+            var actual = fixture.Connection != null ?
+                personsSql.AsSql(TableDirect).ToList<dynamic>(fixture.Connection) :
+                personsSql.AsSql(TableDirect).ToList<dynamic>();
+            foreach (var p in expected) {
+                Assert.Contains(actual, p1 => p1.LastName == p.LastName && p1.FirstName == p.FirstName);
+            }
+            Assert.Equal(expected.Count, actual.Count);
+        }
+
+        [Fact, Order(2)]
+        public void GetObjectList() {
+            var actual = fixture.Connection != null ?
+                personsSql.AsSql(TableDirect).ToList<object>(fixture.Connection) :
+                personsSql.AsSql(TableDirect).ToList<object>();
+            foreach (var p in expected) {
+                Assert.Contains(actual, (dynamic p1) => p1.LastName == p.LastName && p1.FirstName == p.FirstName);
+            }
+            Assert.Equal(expected.Count, actual.Count);
+        }
+
         private string countSql;
-        [Fact, Order(3)]
+        [Fact, Order(2)]
         public void GetScalar() {
             var actual = fixture.Connection != null ?
                 countSql.AsSql().ToScalar<int>(fixture.Connection) :
@@ -74,7 +96,7 @@ namespace StringAsSql.Tests {
         }
 
         private string distinctSql;
-        [Fact, Order(3)]
+        [Fact, Order(2)]
         public void GetDistinctList() {
             var actual = fixture.Connection != null ?
                 distinctSql.AsSql().ToList<string>(fixture.Connection).ToHashSet() :
@@ -84,7 +106,7 @@ namespace StringAsSql.Tests {
         }
 
         private string datatableSql;
-        [Fact, Order(3)]
+        [Fact, Order(2)]
         public void GetDataTable() {
             var dt = fixture.Connection != null ?
                 datatableSql.AsSql().ToDataTable(fixture.Connection) :

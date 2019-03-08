@@ -8,5 +8,7 @@ namespace StringAsSql.Util {
             src.ForEach(tuple => action(tuple.Item1, tuple.Item2));
         public static Dictionary<TKey, TValue> ToDictionary<TKey, TValue>(this IEnumerable<(TKey, TValue)> src) =>
             src.ToDictionary(pair => pair.Item1, pair => pair.Item2);
+        public static void AddRangeTo<TKey, TValue>(this IEnumerable<(TKey, TValue)> src, IDictionary<TKey, TValue> dict) =>
+            src.ForEachT((key, val) => dict.Add(key, val));
     }
 }

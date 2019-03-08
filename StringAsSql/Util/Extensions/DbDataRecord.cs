@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Common;
+using System.Dynamic;
 using System.Linq;
 using System.Reflection;
 using static System.Linq.Enumerable;
@@ -22,6 +23,16 @@ namespace StringAsSql.Util {
         public static T To<T>(this DbDataRecord row, T typer, ref List<PropertyInfo> props) => row.To<T>(ref props);
 
         public static T To<T>(this DbDataRecord row, ref List<PropertyInfo> props) {
+            if (typeof(T) == typeof(object)) {
+                // TODO allow returning only some of the values
+                // a List<PropertyInfo> is the wrong mechanism for this, as PropertyInfo isn't relevant for ExpandoObject properties
+                // TODO handle specific dynamic types -- e.g. ExpandoObject, or specific inheritors of DynamicObject
+                var dynamicRet = new ExpandoObject();
+                IDictionary<string, object> dynamicDict = dynamicRet;
+                row.Fieldnames().Select(fieldname => (fieldname, row.Get(typeof(object), fieldname))).AddRangeTo(dynamicDict);
+                return (T)(object)dynamicRet;
+            }
+
             if (props == null) {
                 var fieldnames = row.Fieldnames();
                 props = typeof(T).GetProperties().Where(x => {

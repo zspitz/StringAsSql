@@ -5,7 +5,7 @@ branches:
     - master
 only_commits:
   files:
-  - StringAsSql/*
+  - StringAsSql/
 assembly_info:
   patch: true
   file: AssemblyInfo.*

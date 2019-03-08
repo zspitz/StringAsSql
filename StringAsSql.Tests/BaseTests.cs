@@ -86,6 +86,21 @@ namespace StringAsSql.Tests {
             Assert.Equal(expected.Count, actual.Count);
         }
 
+        [Fact, Order(2)]
+        public void GetAnonymousTypeList() {
+            var typer = new {
+                LastName = "",
+                FirstName = ""
+            };
+            var actual = fixture.Connection != null ?
+                personsSql.AsSql(TableDirect).ToList(fixture.Connection, typer) :
+                personsSql.AsSql(TableDirect).ToList(typer);
+            foreach (var p in expected) {
+                Assert.Contains(actual, p1 => p1.LastName == p.LastName && p1.FirstName == p.FirstName);
+            }
+            Assert.Equal(expected.Count, actual.Count);
+        }
+
         private string countSql;
         [Fact, Order(2)]
         public void GetScalar() {

@@ -51,7 +51,10 @@ namespace StringAsSql.Util {
                 props.ForEach(prp => prp.SetValue(ret, row.Get(prp.PropertyType, prp.Name)));
             } else {
                 //anonymous type -- order of properties is important; property values have to be passed in to Activator.CreateInstance
-                var values = props.Select(prp => row.Get(prp.PropertyType, prp.Name)).ToArray();
+                var ctors = typeof(T).GetConstructors();
+                if (ctors.Length ==0) { throw new InvalidOperationException($"Type {typeof(T)} has no constructors"); }
+                if (ctors.Length > 1) { throw new InvalidOperationException($"Type {typeof(T)} has multiple constructors"); }
+                var values = ctors.Single().GetParameters().Select(x => row.Get(x.ParameterType, x.Name)).ToArray();
                 ret = (T)Activator.CreateInstance(typeof(T), values);
             }
             return ret;

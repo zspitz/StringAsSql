@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace StringAsSql.Util {
     public static class TypeExtensions {
@@ -38,5 +39,9 @@ namespace StringAsSql.Util {
             return (openType.In(typeof(ValueTuple<,,,,,,,>), typeof(Tuple<,,,,,,,>))
                 && type.GetGenericArguments()[7].IsTupleType());
         }
+
+        public static bool IsAnonymous(this Type type) =>
+            type.HasAttribute<CompilerGeneratedAttribute>() && type.Name.Contains("Anonymous") && type.Name.ContainsAny("<>", "VB$");
+
     }
 }
